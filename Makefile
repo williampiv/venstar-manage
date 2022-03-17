@@ -1,4 +1,4 @@
-NAME := venstar-graph
+NAME := venstar-manage
 .DEFAULT_GOAL := build
 
 fmt:
@@ -9,11 +9,15 @@ lint: fmt
 	golint ./...
 .PHONY: lint
 
-vet : fmt
+vet: fmt
 	go vet ./...
 .PHONY: vet
 
-check: vet lint
+static: vet
+	staticcheck ./...
+.PHONY: static
+
+check: vet lint static
 .PHONY: check
 
 build:
